@@ -1,3 +1,12 @@
+/* 🌟 General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* 🏠 Root Container */
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -5,38 +14,297 @@
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* 🎨 Weather Themed Colors */
+:root {
+  --primary-gradient: linear-gradient(135deg, #2193b0, #6dd5ed);
+  --secondary-gradient: linear-gradient(135deg, #1e3c72, #2a5298);
+  --button-hover: #0056b3;
+  --light-text: #ffffff;
+  --dark-text: #333;
+  --sidebar-bg: #1e1e1e;
+  --card-bg: #2b2b2b;
+  --header-bg: #333;
+  --highlight: #ffcc00;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* 🔵 Weather Dashboard */
+.dashboard {
+  text-align: center;
+  padding: 20px;
+}
+
+/* 🌆 City Selector */
+.city-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px auto;
+  padding: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  max-width: 400px;
+}
+
+.city-selector input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.city-selector input:focus {
+  border-color: #007bff;
+}
+
+/* 🚀 Button Styling */
+button {
+  background: var(--primary-gradient);
+  color: var(--light-text);
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background: var(--button-hover);
+}
+
+/* 🌤️ Weather Cards */
+.weather-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* 🎴 Individual Weather Card */
+.weather-card {
+  background: var(--primary-gradient);
+  color: var(--light-text);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 250px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.weather-card:hover {
+  transform: translateY(-5px);
+}
+
+.city {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.weather-info p {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+/* ❌ Remove Button */
+.remove-btn {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: var(--light-text);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.remove-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* 🌐 Sidebar Container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 600px;
+  max-width: 90%;
+  height: 100vh;
+  background: var(--sidebar-bg);
+  color: var(--light-text);
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  overflow-y: auto;
+  transition: right 0.3s ease-in-out;
+  z-index: 1001;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+/* ❌ Close Button */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.close-btn:hover {
+  transform: scale(1.2);
+  color: #ff4d4d;
+}
+
+/* 🕶 Sidebar Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+}
+
+/* 📅 Forecast Heading */
+.sidebar h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  text-align: center;
+  border-bottom: 2px solid var(--highlight);
+  padding-bottom: 5px;
+}
+
+/* 🔮 Forecast Header */
+.forecast-header {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.forecast-header li {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  background: var(--header-bg);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* 🔮 Forecast List */
+.forecast-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.forecast-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--card-bg);
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.forecast-list li:hover {
+  background: #3b3b3b;
+}
+
+/* ☁️ Weather Icons */
+.forecast-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+/* Forecast Text */
+.forecast-list span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 1024px) {
+  .weather-cards {
+      grid-template-columns: repeat(3, 1fr);
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media (max-width: 600px) {
+  .weather-cards {
+      grid-template-columns: repeat(1, 1fr);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.weather-card {
+  background: linear-gradient(135deg, #5ee7df 0%, #b490ca 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 16px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-.card {
-  padding: 2em;
+.weather-card:hover {
+  transform: scale(1.05);
 }
 
-.read-the-docs {
-  color: #888;
+.weather-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.city {
+  padding-top: 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.weather-icon {
+  font-size: 24px;
+}
+
+.weather-info {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.remove-btn {
+  background: #ff5f5f;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.remove-btn:hover {
+  background: #d44f4f;
 }
