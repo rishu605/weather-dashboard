@@ -47,30 +47,24 @@ const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecas
 
     return (
         <>
-            <div className={`sidebar ${selectedCity ? "open" : ""}`}>
+             <div className={`sidebar ${selectedCity ? "open" : ""}`}>
                 <button className="close-btn" onClick={closeSidebar}>×</button>
                 <h3>10-Day Forecast for {capitalizeCityName(selectedCity)}</h3>
-
                 {forecastError ? (
                     <ForecastError error={forecastError} closeError={closeSidebar} />
                 ) : (
                     <>
-                        <div className="map-container">
-                            <CityMap lat={lat} lon={lon} city={selectedCity} />
-                        </div>
-                        {forecastData ? (
+                        <CityMap lat={lat} lon={lon} city={selectedCity} />
+                        {forecastData && (
                             <>
                                 {renderHeader()}
                                 {renderData()}
                             </>
-                        ) : (
-                            <p className="loading-message">Loading forecast...</p> // Placeholder
                         )}
-
-                        {/* ✅ Always keep space for the map to avoid layout shift */}
                     </>
                 )}
             </div>
+            <div className="sidebar-overlay" onClick={closeSidebar}></div>
         </>
     );
 };
