@@ -10,14 +10,22 @@ const WeatherDashboard = () => {
     const [weatherData, setWeatherData] = useState<Record<string, any>>({});
     const [forecastData, setForecastData] = useState<any | null>(null);
     const [selectedCity, setSelectedCity] = useState<string | null>(null);
-
+    const [errors, setErrors] = useState<Record<string, string | null>>({});
+    const [forecastError, setForecastError] = useState<string | null>(null);
     useEffect(() => {
-        cities.forEach(city => {
-            fetchWeatherData(city)
-                .then(data => setWeatherData(prev => ({ ...prev, [city]: data })))
-                .catch(console.error);
+        cities.forEach(async (city) => {
+            const { data, error } = await fetchWeatherData(city);
+            
+            if (error) {
+                setErrors(prev => ({ ...prev, [city]: error }));
+                setWeatherData(prev => ({ ...prev, [city]: null })); // Ensure UI doesn't break
+            } else {
+                setWeatherData(prev => ({ ...prev, [city]: data }));
+                setErrors(prev => ({ ...prev, [city]: null })); // Clear previous errors if successful
+            }
         });
     }, [cities]);
+
 
     const addCity = (city: string) => {
         if (!cities.includes(city)) {
@@ -32,12 +40,20 @@ const WeatherDashboard = () => {
         saveCities(newCities);
     };
 
-    const showForecast = (city: string) => {
+    const showForecast = async (city: string) => {
         setSelectedCity(city);
-        fetchWeatherForecast(city)
-            .then(data => setForecastData(data))
-            .catch(console.error);
+        
+        const { data, error } = await fetchWeatherForecast(city);
+    
+        if (error) {
+            setForecastData(null);  // Ensure UI doesn't break
+            setForecastError(error); // Store the error message
+        } else {
+            setForecastData(data);
+            setForecastError(null); // Clear any previous error
+        }
     };
+    
 
     const closeSidebar = () => {
         setSelectedCity(null);
@@ -53,6 +69,7 @@ const WeatherDashboard = () => {
                         key={city} 
                         city={city} 
                         data={weatherData[city]} 
+                        error={errors[city] || null}
                         onRemove={() => removeCity(city)} 
                         onClick={() => showForecast(city)}
                     />
@@ -62,7 +79,8 @@ const WeatherDashboard = () => {
             {/* Forecast Sidebar */}
             <ForecastSidebar 
                 selectedCity={selectedCity} 
-                forecastData={forecastData} 
+                forecastData={forecastData}
+                forecastError={forecastError}
                 closeSidebar={closeSidebar} 
             />
         </div>

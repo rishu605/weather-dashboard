@@ -1,14 +1,16 @@
 import { capitalizeCityName, getWeatherIcon } from "../utils/utils";
+import ForecastError from "./Errors/ForecastError";
 
 interface ForecastSidebarProps {
     selectedCity: string | null;
     forecastData: any | null;
+    forecastError: any | null;
     closeSidebar: () => void;
 }
 
-const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecastData, closeSidebar }) => {
+const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecastData, forecastError, closeSidebar }) => {
 
-    if(!selectedCity || !forecastData) return null;
+    if(!selectedCity) return null;
 
     const renderHeader = () => {
         return (
@@ -45,8 +47,18 @@ const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecas
             <div className={`sidebar ${selectedCity ? "open" : ""}`}>
                 <button className="close-btn" onClick={closeSidebar}>×</button>
                 <h3>10-Day Forecast for {capitalizeCityName(selectedCity)}</h3>
-                {renderHeader()}
-                {renderData()}
+                {forecastError ? (
+                    <ForecastError error={forecastError} closeError={closeSidebar} />
+                ) : (
+                    <>
+                        {forecastData && (
+                            <>
+                                {renderHeader()}
+                                {renderData()}
+                            </>
+                        )}
+                    </>
+                )}
             </div>
             <div className="sidebar-overlay" onClick={closeSidebar}></div>
         </>
