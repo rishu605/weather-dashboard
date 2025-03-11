@@ -15,12 +15,14 @@ const WeatherDashboard = () => {
     const [forecastError, setForecastError] = useState<string | null>(null);
     const [loading, setLoading] = useState<Record<string, boolean>>({});
     const [addCityError, setAddCityError] = useState<string | null>(null); // Error message for CitySelector
+    const [draggedCity, setDraggedCity] = useState<string | null>(null);
 
     useEffect(() => {
         cities.forEach(async (city) => {
             setLoading(prev => ({ ...prev, [city]: true })); // Start loading
 
             const { data, error } = await fetchWeatherData(city);
+            console.log("cityData: ", data)
 
             if (error) {
                 setErrors(prev => ({ ...prev, [city]: error }));
@@ -106,21 +108,50 @@ const WeatherDashboard = () => {
         setAddCityError(null); // Clear any previous error
     }
 
+    const handleDragStart = (city: string) => {
+        setDraggedCity(city);
+    };
+
+    const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+        event.preventDefault(); // Allow dropping
+    };
+
+    const handleDrop = (targetCity: string) => {
+        if (!draggedCity || draggedCity === targetCity) return;
+
+        const updatedCities = [...cities];
+        const fromIndex = updatedCities.indexOf(draggedCity);
+        const toIndex = updatedCities.indexOf(targetCity);
+
+        updatedCities.splice(fromIndex, 1); // Remove dragged city
+        updatedCities.splice(toIndex, 0, draggedCity); // Insert at new position
+
+        setCities(updatedCities);
+        saveCities(updatedCities); // Persist new order in localStorage
+    };
+
     return (
         <div className="dashboard">
             <CitySelector onClick={onCitySelectorClick} onAddCity={addCity} />
             {addCityError && <p className="error-message">{addCityError}</p>} {/* Show error below input */}
             <div className="weather-cards">
                 {cities.map(city => (
-                    <WeatherCard 
-                        key={city} 
-                        city={city} 
-                        data={weatherData[city]} 
-                        error={errors[city]}
-                        loading={loading[city] || false} // Pass loading state
-                        onRemove={() => removeCity(city)} 
-                        onClick={() => showForecast(city)}
-                    />
+                    <div
+                        key={city}
+                        draggable
+                        onDragStart={() => handleDragStart(city)}
+                        onDragOver={handleDragOver}
+                        onDrop={() => handleDrop(city)}
+                    >
+                        <WeatherCard 
+                            city={city} 
+                            data={weatherData[city]} 
+                            error={errors[city]}
+                            loading={loading[city] || false}
+                            onRemove={() => removeCity(city)} 
+                            onClick={() => showForecast(city)}
+                        />
+                    </div>
                 ))}
             </div>
 
