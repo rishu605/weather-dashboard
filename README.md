@@ -1,9 +1,10 @@
-Here is your complete `README.md` file in markdown format:  
 
-```markdown
 # 🌦️ Weather Dashboard - React App
 
 A feature-rich **Weather Dashboard** built with **React, TypeScript, and Leaflet** to display **real-time weather data** and a **5-day forecast** for multiple user-selected cities. The app integrates **OpenWeatherMap API**, includes **drag-and-drop support**, and provides an **interactive map** for each city.
+
+Deployment Link - https://weather-dashboard-rho-two.vercel.app/
+Github Link - https://github.com/rishu605/weather-dashboard
 
 ---
 
