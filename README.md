@@ -46,7 +46,7 @@ Github Link - https://github.com/rishu605/weather-dashboard
  ┃ ┃ ┣ 📜 WeatherCard.tsx       // Displays current weather info
  ┃ ┃ ┣ 📜 ForecastSidebar.tsx   // Sidebar with 5-day forecast & map
  ┃ ┃ ┣ 📜 CityMap.tsx           // Leaflet-based city map component
- ┃ ┃ ┣ 📜 Errors
+ ┃ ┃ ┣ 📂 Errors
  ┃ ┃ ┃ ┣ 📜 WeatherError.tsx    // Error display for weather fetch failures
  ┃ ┃ ┃ ┣ 📜 ForecastError.tsx   // Error display for forecast fetch failures
  ┃ ┃ ┃ ┣ 📜 AddCityError.tsx    // Error message for invalid city input
@@ -61,7 +61,7 @@ Github Link - https://github.com/rishu605/weather-dashboard
  ┃ ┣ 📜 App.tsx                 // Root component
  ┃ ┣ 📜 main.tsx                // Entry point for React app
  ┣ 📜 README.md                 // Project documentation
- ┣ 📜 package.json               // Dependencies and scripts
+ ┣ 📜 package.json              // Dependencies and scripts
 ```
 
 ---
