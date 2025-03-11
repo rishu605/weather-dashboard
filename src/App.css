@@ -319,3 +319,16 @@ button:hover {
     transform: rotate(360deg);
   }
 }
+
+.map-container {
+  width: 100%;
+  height: 300px; /* Ensure the map space is reserved */
+  margin-top: 15px;
+}
+
+.loading-message {
+  text-align: center;
+  font-size: 16px;
+  color: #ccc;
+  margin: 20px 0;
+}

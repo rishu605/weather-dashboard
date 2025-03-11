@@ -157,6 +157,8 @@ const WeatherDashboard = () => {
 
             {/* Forecast Sidebar */}
             <ForecastSidebar 
+                lat={selectedCity ? weatherData[selectedCity]?.coord.lat: 0}
+                lon={selectedCity ? weatherData[selectedCity]?.coord.lon: 0}
                 selectedCity={selectedCity} 
                 forecastData={forecastData}
                 forecastError={forecastError}

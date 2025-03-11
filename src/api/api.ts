@@ -38,7 +38,7 @@ export const fetchWeatherForecast = async (
     city: string
 ): Promise<{ data: any[] | null; error: string | null }> => {
     try {
-        const response = await fetch(`${BASE_URL}/forecast/daily?q=${city}&cnt=10&units=metric&appid=${API_KEY}`);
+        const response = await fetch(`${BASE_URL}/forecast/daily?q=${city}&cnt=5&units=metric&appid=${API_KEY}`);
         const result = await response.json();
 
         if (response.status === 429) {
