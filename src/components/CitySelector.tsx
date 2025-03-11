@@ -2,9 +2,10 @@ import { useState } from "react";
 
 interface Props {
     onAddCity: (city: string) => void;
+    onClick: () => void;
 }
 
-const CitySelector: React.FC<Props> = ({ onAddCity }) => {
+const CitySelector: React.FC<Props> = ({ onAddCity, onClick }) => {
     const [city, setCity] = useState("");
 
     const handleAddCity = () => {
@@ -14,6 +15,7 @@ const CitySelector: React.FC<Props> = ({ onAddCity }) => {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onClick()
         setCity(e.target.value);
     }
 

@@ -6,8 +6,16 @@ const BASE_URL = "https://api.openweathermap.org/data/2.5";
 export const fetchWeatherData = async (city: string, retries = 3, delay = 1000): Promise<{ data: any; error: string | null }> => {
     try {
         const response = await fetch(`${BASE_URL}/weather?q=${city}&units=metric&appid=${API_KEY}`);
-        if (!response.ok) throw new Error(`Failed to fetch weather data for ${city}`);
         const data = await response.json();
+
+        if (response.status === 404) {
+            return { data: null, error: "City not found" }; // Handle non-existent city
+        }
+
+        if (!response.ok) {
+            throw new Error(data.message || `Failed to fetch weather data for ${city}`);
+        }
+
         return { data, error: null };
     } catch (error) {
         if (retries > 0) {
