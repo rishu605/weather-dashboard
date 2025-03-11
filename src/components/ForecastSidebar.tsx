@@ -15,41 +15,39 @@ const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecas
 
     if(!selectedCity) return null;
 
-    const renderHeader = () => {
+    const renderForecastTable = () => {
         return (
-            <ul className="forecast-header">
-                <li>
-                    <span>Weather</span>
-                    <span>Date</span>
-                    <span>Min Temp</span>
-                    <span>Max Temp</span>
-                    <span>Condition</span>
-                </li>
-            </ul>
-        );
-    }
-
-    const renderData = () => {
-        return (
-            <ul className="forecast-list">
-                {forecastData.map((day: any, index: number) => (
-                    <li key={index}>
-                        <span className="forecast-icon">{getWeatherIcon(day.weather)}</span>
-                        <span>{day.date}</span>
-                        <span>{day.tempMin}°C</span>
-                        <span>{day.tempMax}°C</span>
-                        <span>{day.weather}</span>
+            <div className="forecast-table">
+                <ul className="forecast-header">
+                    <li>
+                        <span>Weather</span>
+                        <span>Date</span>
+                        <span>Min Temp</span>
+                        <span>Max Temp</span>
+                        <span>Condition</span>
                     </li>
-                ))}
-            </ul>
-        )
-    }
+                </ul>
+                <ul className="forecast-list">
+                    {forecastData.map((day: any, index: number) => (
+                        <li key={index}>
+                            <span className="forecast-icon">{getWeatherIcon(day.weather)}</span>
+                            <span>{day.date}</span>
+                            <span>{day.tempMin}°C</span>
+                            <span>{day.tempMax}°C</span>
+                            <span>{day.weather}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    };
+    
 
     return (
         <>
              <div className={`sidebar ${selectedCity ? "open" : ""}`}>
                 <button className="close-btn" onClick={closeSidebar}>×</button>
-                <h3>10-Day Forecast for {capitalizeCityName(selectedCity)}</h3>
+                <h3>5-Day Forecast for {capitalizeCityName(selectedCity)}</h3>
                 {forecastError ? (
                     <ForecastError error={forecastError} closeError={closeSidebar} />
                 ) : (
@@ -57,8 +55,7 @@ const ForecastSidebar: React.FC<ForecastSidebarProps> = ({ selectedCity, forecas
                         <CityMap lat={lat} lon={lon} city={selectedCity} />
                         {forecastData && (
                             <>
-                                {renderHeader()}
-                                {renderData()}
+                                {renderForecastTable()}
                             </>
                         )}
                     </>

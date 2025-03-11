@@ -113,6 +113,7 @@ button:hover {
   padding-top: 8px;
   font-size: 20px;
   font-weight: bold;
+  color: black;
 }
 
 .weather-icon {
@@ -169,22 +170,36 @@ button:hover {
   transform: translateX(0);
 }
 
-/* ❌ Close Button */
+/* Close Button */
 .close-btn {
   position: absolute;
   top: 10px;
   right: 15px;
   font-size: 28px;
-  background: none;
+  background: transparent;  /* Ensure no background appears */
   border: none;
   color: white;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, color 0.2s;
+  outline: none; /* Prevent blue outline on focus */
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.close-btn:hover {
+/* Hover & Focus Effect */
+.close-btn:hover, 
+.close-btn:focus {
   transform: scale(1.2);
   color: #ff4d4d;
+  background: transparent; /* Prevent background changes */
+}
+
+/* Active Click Effect */
+.close-btn:active {
+  transform: scale(1);
+  opacity: 0.7;
 }
 
 /* 🕶 Sidebar Overlay */
@@ -331,4 +346,54 @@ button:hover {
   font-size: 16px;
   color: #ccc;
   margin: 20px 0;
+}
+
+.forecast-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.forecast-header,
+.forecast-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.forecast-header li,
+.forecast-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: var(--header-bg);
+  color: white;
+  font-weight: bold;
+}
+
+.forecast-list li {
+  background: var(--card-bg);
+  color: var(--light-text);
+  font-weight: normal;
+}
+
+.forecast-list li:hover {
+  background: #3b3b3b;
+}
+
+.forecast-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.forecast-header li span,
+.forecast-list li span {
+  flex: 1;
+  text-align: center;
+}
+
+.forecast-header li span:first-child,
+.forecast-list li span:first-child {
+  flex: 0.5; /* Adjust width for icon */
 }
