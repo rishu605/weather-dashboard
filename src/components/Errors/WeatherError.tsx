@@ -1,8 +1,12 @@
 interface WeatherErrorProps {
-    city: string;
-    error: string;
+    city: string; // Name of the city
+    error: string; // Error message to display
 }
 
+/**
+ * WeatherError Component
+ * Displays an error message when weather data for a city cannot be retrieved.
+ */
 const WeatherError: React.FC<WeatherErrorProps> = ({ city, error }) => {
     return (
         <div className="weather-error">

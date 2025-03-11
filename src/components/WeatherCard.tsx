@@ -12,6 +12,12 @@ interface Props {
     onClick: () => void;
 }
 
+/**
+ * WeatherCard Component
+ * - Displays weather data for a city.
+ * - Handles loading and error states.
+ * - Allows city removal and clicking to view more details.
+ */
 const WeatherCard: React.FC<Props> = ({ city, data, error, loading, onRemove, onClick }) => {
     const weatherType = data?.weather?.[0]?.main;
     const weatherIcon = getWeatherIcon(weatherType || "");
@@ -25,7 +31,7 @@ const WeatherCard: React.FC<Props> = ({ city, data, error, loading, onRemove, on
 
             <div className="weather-info">
                 {loading ? (
-                    <LoadingSpinner/>
+                    <LoadingSpinner />
                 ) : error ? (
                     <WeatherError city={capitalizeCityName(city)} error={error} />
                 ) : (

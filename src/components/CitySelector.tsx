@@ -1,30 +1,35 @@
 import { useState } from "react";
 
 interface Props {
-    onAddCity: (city: string) => void;
-    onClick: () => void;
+    onAddCity: (city: string) => void; // Function to add a city
+    onClick: () => void; // Function to handle input click (e.g., clear errors)
 }
 
+/**
+ * CitySelector Component
+ * Allows users to input and add a city.
+ */
 const CitySelector: React.FC<Props> = ({ onAddCity, onClick }) => {
     const [city, setCity] = useState("");
 
+    // Adds city if input is not empty
     const handleAddCity = () => {
-        if (!city.trim()) return; // Prevent empty input
+        if (!city.trim()) return;
         onAddCity(city.trim());
         setCity("");
     };
 
+    // Handles input change and triggers onClick (useful for clearing errors)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onClick()
+        onClick();
         setCity(e.target.value);
-    }
+    };
 
+    // Adds city on pressing Enter
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            handleAddCity();
-        }
-    }
-        
+        if (e.key === "Enter") handleAddCity();
+    };
+
     return (
         <div className="city-selector">
             <input

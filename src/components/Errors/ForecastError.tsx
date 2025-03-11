@@ -1,8 +1,12 @@
 interface ForecastErrorProps {
-    error: string;
-    closeError: () => void;
+    error: string; // Error message to display
+    closeError: () => void; // Function to close the error message
 }
 
+/**
+ * ForecastError Component
+ * Displays an error message for forecast-related issues.
+ */
 const ForecastError: React.FC<ForecastErrorProps> = ({ error, closeError }) => {
     return (
         <div className="forecast-error">
